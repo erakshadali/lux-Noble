@@ -1,0 +1,138 @@
+// All content for the ALMA Beauty Center website (app/alma). Every fact below comes from the two ALMA posters
+// (Pink October 15% discount, Halloween package 615 SAR). Nothing else is invented: no prices, address or opening hours.
+export type Lang = "ar" | "en";
+export type L = Record<Lang, string>;
+
+export const PHONE_E164 = "966552150100";
+export const PHONE_SHOW = "+966 55 215 0100";
+
+export const SERVICES: { id: string; name: L; note: L; price?: number; icon: "pkg" | "hair" | "nails" | "makeup" | "more" }[] = [
+  {
+    id: "halloween",
+    name: { ar: "باقة الهالوين", en: "Halloween Package" },
+    note: { ar: "تسريحة ستايل + لون يدين ولون للأقدام + مكياج سهرة", en: "Hair style + hand & foot nail colour + evening makeup" },
+    price: 615,
+    icon: "pkg",
+  },
+  { id: "makeup", name: { ar: "مكياج سهرة", en: "Evening makeup" }, note: { ar: "إطلالة مميزة", en: "A standout look" }, icon: "makeup" },
+  { id: "hair", name: { ar: "تسريحة ستايل", en: "Hair styling" }, note: { ar: "ستايل رائع", en: "A gorgeous style" }, icon: "hair" },
+  { id: "nails", name: { ar: "لون يدين + لون للأقدام", en: "Hand + foot nail colour" }, note: { ar: "تغيير وأناقة", en: "Change and elegance" }, icon: "nails" },
+  { id: "other", name: { ar: "أي خدمة أخرى من خدمات الصالون", en: "Any other salon service" }, note: { ar: "اسألينا عن السعر", en: "Ask us for the price" }, icon: "more" },
+];
+
+export const T = {
+  brand: { ar: "ألما", en: "ALMA" } as L,
+  sub: { ar: "مركز التجميل", en: "Beauty Center" } as L,
+  nav: {
+    offers: { ar: "العروض", en: "Offers" } as L,
+    package: { ar: "الباقة", en: "Package" } as L,
+    book: { ar: "احجزي", en: "Book" } as L,
+    terms: { ar: "الشروط", en: "Terms" } as L,
+    contact: { ar: "تواصلي معنا", en: "Contact" } as L,
+  },
+  lang: { ar: "English", en: "عربي" } as L,
+  bar: {
+    ar: "خصم أكتوبر الوردي 15% على جميع خدمات الصالون · الأحد والإثنين والثلاثاء",
+    en: "Pink October: 15% off all salon services · Sunday, Monday & Tuesday",
+  } as L,
+  hero: {
+    kicker: { ar: "باقة الهالوين · خريف أكتوبر", en: "Halloween package · October autumn" } as L,
+    title: { ar: "إطلالة واحدة… تخطف الأنظار", en: "One look… that turns every head" } as L,
+    lede: {
+      ar: "ستايل مميز لسهرة خريف أكتوبر. تسريحة، ولون للأيدي والأقدام، ومكياج سهرة في باقة واحدة.",
+      en: "A distinctive style for an October autumn evening: hair, nail colour and evening makeup in one package.",
+    } as L,
+    cta: { ar: "احجزي الآن", en: "Book now" } as L,
+    cta2: { ar: "شاهدي العروض", en: "See the offers" } as L,
+    only: { ar: "كل هذا فقط", en: "All this for only" } as L,
+    sar: { ar: "ريال", en: "SAR" } as L,
+  },
+  offers: {
+    kicker: { ar: "عروض أكتوبر", en: "October offers" } as L,
+    title: { ar: "عرضان لا يفوّتان", en: "Two offers you will love" } as L,
+    pinkTitle: { ar: "خصم أكتوبر الوردي", en: "Pink October Discount" } as L,
+    pinkOn: { ar: "على جميع خدمات الصالون", en: "on all salon services" } as L,
+    pinkDays: { ar: "الخصم لأيام", en: "Discount days" } as L,
+    pinkDaysList: { ar: "الأحد / الإثنين / الثلاثاء", en: "Sunday / Monday / Tuesday" } as L,
+    pinkCta: { ar: "احجزي بخصم 15%", en: "Book with 15% off" } as L,
+    halTitle: { ar: "باقة الهالوين", en: "Halloween Package" } as L,
+    halSub: { ar: "ستايل مميز .. لسهرة خريف أكتوبر", en: "A distinctive style for an October autumn evening" } as L,
+    halCta: { ar: "احجزي الباقة", en: "Book the package" } as L,
+    left: { ar: "يوم متبقي على نهاية العرض", en: "days left on the offer" } as L,
+    ended: { ar: "العرض سارٍ لشهر أكتوبر فقط", en: "Valid in October only" } as L,
+    posters: { ar: "اعرضي الإعلان كاملاً", en: "View the full poster" } as L,
+  },
+  pkg: {
+    kicker: { ar: "ماذا تشمل الباقة", en: "What is included" } as L,
+    title: { ar: "ثلاث خدمات. سعر واحد.", en: "Three services. One price." } as L,
+    items: [
+      { img: "/alma/hair.jpg", t: { ar: "تسريحة ستايل", en: "Style hairdo" } as L, d: { ar: "ستايل رائع", en: "A gorgeous style" } as L },
+      { img: "/alma/nails.jpg", t: { ar: "لون يدين + لون للأقدام", en: "Hand + foot nail colour" } as L, d: { ar: "تغيير وأناقة", en: "Change and elegance" } as L },
+      { img: "/alma/makeup.jpg", t: { ar: "مكياج سهرة", en: "Evening makeup" } as L, d: { ar: "إطلالة مميزة", en: "A standout look" } as L },
+    ],
+    home: { ar: "متوفر خدمات منزلية", en: "Home services available" } as L,
+    homeD: { ar: "نأتي إليك في البيت.", en: "We come to you at home." } as L,
+    tabby: { ar: "متوفر الدفع تابي", en: "Pay with Tabby" } as L,
+    tabbyD: { ar: "قسّمي الدفع بسهولة.", en: "Split your payment easily." } as L,
+    tagline: { ar: "إطلالة واحدة… تخطف الأنظار", en: "One look… that turns every head" } as L,
+  },
+  book: {
+    kicker: { ar: "احجزي موعدك", en: "Book your appointment" } as L,
+    title: { ar: "احجزي الآن عبر واتساب", en: "Book now on WhatsApp" } as L,
+    s1: { ar: "اختاري الخدمة", en: "Choose your service" } as L,
+    s2: { ar: "المكان", en: "Where" } as L,
+    s3: { ar: "اليوم والوقت", en: "Day and time" } as L,
+    s4: { ar: "بياناتك", en: "Your details" } as L,
+    salon: { ar: "في الصالون", en: "At the salon" } as L,
+    home: { ar: "خدمة منزلية", en: "Home service" } as L,
+    morning: { ar: "صباحاً", en: "Morning" } as L,
+    afternoon: { ar: "ظهراً", en: "Afternoon" } as L,
+    evening: { ar: "مساءً", en: "Evening" } as L,
+    name: { ar: "الاسم", en: "Name" } as L,
+    phone: { ar: "رقم الجوال / واتساب", en: "Mobile / WhatsApp" } as L,
+    note: { ar: "ملاحظات (اختياري)", en: "Notes (optional)" } as L,
+    notePh: { ar: "مثلاً: العنوان للخدمة المنزلية", en: "e.g. your address for home service" } as L,
+    summary: { ar: "ملخص حجزك", en: "Your booking" } as L,
+    when: { ar: "الموعد", en: "When" } as L,
+    where: { ar: "المكان", en: "Where" } as L,
+    total: { ar: "الإجمالي", en: "Total" } as L,
+    priceLater: { ar: "السعر يؤكد عبر واتساب", en: "Price confirmed on WhatsApp" } as L,
+    disc: { ar: "ينطبق خصم أكتوبر الوردي 15% (للخدمات التي يتجاوز سعرها الأساسي 100 ريال، ولا يجمع مع عروض أخرى)", en: "Pink October 15% applies (for services over SAR 100, not combined with other offers)" } as L,
+    noDisc: { ar: "خصم 15% متاح أيام الأحد والإثنين والثلاثاء. اختاري يوماً وردياً!", en: "15% off on Sunday, Monday and Tuesday. Pick a pink day!" } as L,
+    pkgNoDisc: { ar: "الباقة سعرها ثابت ولا يجمع مع الخصومات", en: "The package has a fixed price and is not combined with discounts" } as L,
+    send: { ar: "أرسلي الحجز عبر واتساب", en: "Send booking on WhatsApp" } as L,
+    pick: { ar: "اختاري خدمة", en: "Pick a service" } as L,
+    pickDay: { ar: "اختاري يوماً", en: "Pick a day" } as L,
+    pickTime: { ar: "اختاري وقتاً", en: "Pick a time" } as L,
+    addName: { ar: "أضيفي اسمك", en: "Add your name" } as L,
+    addPhone: { ar: "أضيفي رقم جوالك", en: "Add your phone" } as L,
+    done: { ar: "جاهز! اضغطي لإرسال الحجز", en: "Ready! Tap to send the booking" } as L,
+    note2: { ar: "يصلنا حجزك على واتساب ونؤكد لك الموعد.", en: "Your booking reaches us on WhatsApp and we confirm your time." } as L,
+    pinkDay: { ar: "خصم 15%", en: "15% off" } as L,
+    today: { ar: "اليوم", en: "Today" } as L,
+  },
+  terms: {
+    kicker: { ar: "الشروط والأحكام", en: "Terms & conditions" } as L,
+    title: { ar: "اقرئي قبل الحجز", en: "Good to know" } as L,
+    pink: { ar: "خصم أكتوبر الوردي", en: "Pink October discount" } as L,
+    pinkList: [
+      { ar: "يسري الخصم على الخدمات التي يتجاوز سعرها الأساسي 100 ريال.", en: "The discount applies to services whose base price is over SAR 100." },
+      { ar: "لا يُجمع العرض مع أي عروض أو خصومات أخرى.", en: "The offer cannot be combined with any other offers or discounts." },
+      { ar: "العرض ساري لشهر أكتوبر فقط.", en: "The offer is valid in October only." },
+    ] as L[],
+    hal: { ar: "باقة الهالوين", en: "Halloween package" },
+    halList: [
+      { ar: "تطبق الشروط والأحكام.", en: "Terms and conditions apply." },
+      { ar: "متوفر خدمات منزلية.", en: "Home services are available." },
+      { ar: "متوفر الدفع عبر تابي.", en: "Payment with Tabby is available." },
+    ] as L[],
+  },
+  contact: {
+    kicker: { ar: "تواصلي معنا", en: "Contact us" } as L,
+    title: { ar: "احجزي الآن", en: "Book now" } as L,
+    call: { ar: "اتصلي بنا", en: "Call us" } as L,
+    wa: { ar: "راسلينا على واتساب", en: "Message us on WhatsApp" } as L,
+    rights: { ar: "ألما لمركز التجميل · جميع الحقوق محفوظة", en: "ALMA Beauty Center · All rights reserved" } as L,
+    by: { ar: "تصميم الموقع: Onwebsite", en: "Website by Onwebsite" } as L,
+  },
+};

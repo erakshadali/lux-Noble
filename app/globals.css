@@ -1,26 +1,526 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-manrope);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-manrope), system-ui, sans-serif;
+}
+
+.demo-root {
+  background: var(--bg);
+  color: var(--ink);
+}
+
+/* Dark look: soft colored glows behind sections and glowing accent buttons. */
+.demo-dark {
+  background:
+    radial-gradient(60rem 40rem at 90% 30%, color-mix(in srgb, var(--accent) 12%, transparent), transparent 70%),
+    radial-gradient(50rem 36rem at 0% 75%, color-mix(in srgb, var(--accent-2) 10%, transparent), transparent 70%),
+    var(--bg);
+}
+.demo-dark .btn[style*="background"] {
+  box-shadow: 0 10px 34px -8px color-mix(in srgb, var(--accent) 70%, transparent);
+}
+.demo-dark h2.display {
+  background: linear-gradient(100deg, var(--ink) 30%, var(--accent-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Light look: clean white page body with soft shadows; the hero stays dark and colourful. */
+.demo-light {
+  background: var(--bg);
+}
+.demo-light .btn[style*="background"] {
+  box-shadow: 0 10px 26px -10px color-mix(in srgb, var(--accent) 65%, transparent);
+}
+.demo-light li.reveal,
+.demo-light details {
+  box-shadow: 0 1px 2px rgba(15, 30, 40, 0.05), 0 12px 32px -18px rgba(15, 30, 40, 0.18);
+}
+.demo-root .btn:active {
+  transform: scale(0.97);
+}
+
+.display {
+  font-family: var(--display), Georgia, serif;
+}
+
+.fade-up {
+  opacity: 0;
+  transform: translateY(18px);
+  animation: fadeUp 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+}
+
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 38s linear infinite;
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.tile {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1.25rem;
+}
+
+.tile::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(120% 90% at 20% 0%, rgba(255, 255, 255, 0.22), transparent 55%);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  border-radius: 999px;
+  padding: 0.95rem 1.6rem;
+  font-weight: 700;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+.btn:focus-visible,
+a:focus-visible {
+  outline: 3px solid var(--accent-2);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fade-up {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  .marquee {
+    animation: none;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* ---------- 3D ---------- */
+.tilt {
+  transform-style: preserve-3d;
+  transform: perspective(1400px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition: transform 0.25s ease-out;
+  animation: sway 12s ease-in-out infinite;
+  will-change: transform;
+}
+
+.tilt[data-active] {
+  animation: none;
+}
+
+@keyframes sway {
+  0%,
+  100% {
+    transform: perspective(1400px) rotateX(3deg) rotateY(-9deg);
+  }
+  50% {
+    transform: perspective(1400px) rotateX(-2deg) rotateY(9deg);
+  }
+}
+
+.layer {
+  position: absolute;
+  backface-visibility: hidden;
+}
+
+.float-a {
+  animation: floatA 7s ease-in-out infinite;
+}
+
+@keyframes floatA {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 -14px;
+  }
+}
+
+/* rotating 3D photo ring */
+.ring-scene {
+  perspective: 1700px;
+  height: clamp(300px, 44vw, 500px);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.ring {
+  --w: clamp(150px, 24vw, 300px);
+  --r: calc(var(--w) * var(--k, 1.42));
+  position: relative;
+  width: var(--w);
+  aspect-ratio: 4 / 5;
+  transform-style: preserve-3d;
+  transform: translateZ(calc(var(--r) * -1));
+  animation: ringSpin 60s linear infinite;
+}
+
+.ring:hover {
+  animation-play-state: paused;
+}
+
+.ring-item {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: 1.1rem;
+  transform: rotateY(calc(var(--i) * 360deg / var(--n))) translateZ(var(--r));
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.55);
+  background: #000;
+}
+
+@keyframes ringSpin {
+  from {
+    transform: translateZ(calc(var(--r) * -1)) rotateY(0deg);
+  }
+  to {
+    transform: translateZ(calc(var(--r) * -1)) rotateY(-360deg);
+  }
+}
+
+/* pulsing call button (home services hero) */
+.pulse-ring::before,
+.pulse-ring::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  border: 2px solid rgba(0, 0, 0, 0.55);
+  animation: pulseRing 2.4s ease-out infinite;
+}
+.pulse-ring::after {
+  animation-delay: 1.2s;
+}
+@keyframes pulseRing {
+  from {
+    transform: scale(1);
+    opacity: 0.9;
+  }
+  to {
+    transform: scale(1.9);
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pulse-ring::before,
+  .pulse-ring::after {
+    animation: none;
+    opacity: 0;
+  }
+}
+
+/* scroll-in reveal (progressive enhancement: browsers without scroll timelines just show the content) */
+@supports (animation-timeline: view()) {
+  .reveal {
+    animation: reveal both ease-out;
+    animation-timeline: view();
+    animation-range: entry 0% cover 28%;
+  }
+}
+
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translateY(46px) rotateX(9deg) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tilt,
+  .float-a,
+  .reveal {
+    animation: none;
+  }
+  .ring {
+    animation: none;
+    transform: translateZ(calc(var(--r) * -1)) rotateY(-25deg);
+  }
+}
+
+/* ---------- Premium salon template (components/SalonSite.tsx) ---------- */
+.salon-root {
+  font-family: var(--font-manrope), system-ui, sans-serif;
+  overflow-x: clip;
+}
+.salon-display {
+  font-family: var(--display), Georgia, serif;
+}
+.salon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  border-radius: 999px;
+  padding: 0.95rem 1.7rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease, opacity 0.2s ease;
+}
+.salon-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+}
+.salon-btn:active:not(:disabled) {
+  transform: scale(0.97);
+}
+.salon-input {
+  display: block;
+  width: 100%;
+  margin-top: 0.4rem;
+  border-radius: 1rem;
+  border: 1.5px solid var(--line);
+  background: var(--bg);
+  padding: 0.85rem 1rem;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--ink);
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.salon-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 18%, transparent);
+}
+.salon-rise {
+  opacity: 0;
+  transform: translateY(22px);
+  animation: fadeUp 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+}
+.salon-kenburns {
+  animation: kenburns 24s ease-in-out infinite alternate;
+}
+@keyframes kenburns {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.12) translate(-1.5%, -1%);
+  }
+}
+.salon-marquee {
+  animation: marquee 40s linear infinite;
+}
+.salon-float {
+  animation: salonFloat 7s ease-in-out infinite;
+}
+@keyframes salonFloat {
+  50% {
+    transform: translateY(-12px);
+  }
+}
+.salon-orb {
+  animation: salonFloat 9s ease-in-out infinite;
+}
+.salon-faq summary::-webkit-details-marker {
+  display: none;
+}
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.salon-root button:focus-visible,
+.salon-root a:focus-visible {
+  outline: 3px solid var(--accent2);
+  outline-offset: 3px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .salon-rise,
+  .salon-kenburns,
+  .salon-marquee,
+  .salon-float,
+  .salon-orb {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ---------- ALMA Beauty Center (app/alma) ---------- */
+.alma-root {
+  font-family: var(--font-cairo), system-ui, sans-serif;
+  overflow-x: clip;
+}
+.alma-display {
+  font-family: var(--font-cormorant), var(--font-cairo), Georgia, serif;
+  font-weight: 600;
+}
+[dir="rtl"] .alma-display {
+  font-family: var(--font-cairo), serif;
+  font-weight: 800;
+}
+.alma-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  border-radius: 999px;
+  padding: 0.95rem 1.7rem;
+  font-weight: 800;
+  background: var(--mauve);
+  color: #fff;
+  box-shadow: 0 16px 34px -16px var(--mauve);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+}
+.alma-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+}
+.alma-btn:active:not(:disabled) {
+  transform: scale(0.97);
+}
+.alma-btn-ghost {
+  background: rgba(255, 255, 255, 0.7);
+  color: var(--mauve);
+  border: 1.5px solid var(--mauve);
+  box-shadow: none;
+}
+.alma-input {
+  display: block;
+  width: 100%;
+  margin-top: 0.4rem;
+  border-radius: 1rem;
+  border: 1.5px solid var(--line);
+  background: #fff;
+  padding: 0.85rem 1rem;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--ink);
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.alma-input:focus {
+  border-color: var(--rose-d);
+  box-shadow: 0 0 0 4px rgba(201, 100, 127, 0.18);
+}
+.alma-card {
+  box-shadow: 0 30px 60px -40px rgba(94, 80, 98, 0.45);
+  transition: transform 0.35s ease;
+}
+.alma-card:hover {
+  transform: translateY(-4px);
+}
+.alma-ring {
+  padding: 8px;
+  border-radius: 999px;
+  background: conic-gradient(from 0deg, #e9a9b8, #c9a36a, #e08a4b, #e9a9b8);
+  box-shadow: 0 24px 50px -28px rgba(94, 80, 98, 0.6);
+}
+.alma-ring > div {
+  inset: 8px;
+  border: 4px solid #fff;
+}
+.alma-rise {
+  opacity: 0;
+  transform: translateY(22px);
+  animation: fadeUp 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+}
+.alma-reveal {
+  animation: reveal both ease-out;
+}
+@supports (animation-timeline: view()) {
+  .alma-reveal {
+    animation-timeline: view();
+    animation-range: entry 0% cover 30%;
+  }
+}
+.alma-float {
+  animation: almaFloat 7s ease-in-out infinite;
+}
+.alma-blob {
+  animation: almaFloat 11s ease-in-out infinite;
+}
+@keyframes almaFloat {
+  50% {
+    transform: translateY(-14px);
+  }
+}
+.alma-petals {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+.alma-petals span {
+  position: absolute;
+  top: -20px;
+  width: 12px;
+  height: 16px;
+  border-radius: 80% 0 80% 0;
+  background: #e9a9b8;
+  opacity: 0.55;
+  animation: almaFall linear infinite;
+}
+.alma-petals span:nth-child(3n) {
+  background: #e08a4b;
+}
+.alma-petals span:nth-child(3n + 1) {
+  background: #f4c9d2;
+}
+@keyframes almaFall {
+  to {
+    transform: translate3d(60px, 110vh, 0) rotate(420deg);
+  }
+}
+.alma-scroll {
+  scrollbar-width: none;
+}
+.alma-scroll::-webkit-scrollbar {
+  display: none;
+}
+.alma-root button:focus-visible,
+.alma-root a:focus-visible,
+.alma-root input:focus-visible {
+  outline: 3px solid var(--rose-d);
+  outline-offset: 3px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .alma-rise,
+  .alma-float,
+  .alma-blob,
+  .alma-reveal {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  .alma-petals {
+    display: none;
+  }
 }
