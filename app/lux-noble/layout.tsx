@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Cairo, Cormorant_Garamond } from "next/font/google";
 import { business } from "@/lib/estate/types";
-import { LangShell, LangToggle, T } from "@/lib/estate/lang";
+import { LangShell, T } from "@/lib/estate/lang";
 import HeaderArt from "@/components/estate/HeaderArt";
 import MobileMenu from "@/components/estate/MobileMenu";
 import Effects from "@/components/estate/Effects";
@@ -37,7 +37,6 @@ export default function LuxNobleLayout({ children }: { children: React.ReactNode
           </Link>
           <nav className="flex items-center gap-5 text-sm">
             {nav.map(([t, h, a]) => <Link key={t} href={h} className="ln-navlink hidden text-white/75 transition hover:text-[var(--gold)] sm:block"><T en={t} ar={a} /></Link>)}
-            <div className="hidden sm:block"><LangToggle /></div>
             <Link href="/lux-noble/admin" className="hidden rounded-full border border-[var(--gold)]/60 px-4 py-2 font-semibold text-[var(--gold)] hover:bg-[var(--gold)] hover:text-black sm:block"><T en="Add listings" ar="إضافة عقارات" /></Link>
             <MobileMenu items={nav} />
           </nav>

@@ -6,7 +6,12 @@ export type Lang = "en" | "ar";
 const KEY = "ln-lang";
 const subs = new Set<() => void>();
 
+// The Arabic version is switched off for now: there is no toggle and the site is always English.
+// To bring it back, return the saved language here and add <LangToggle /> to the header.
+const ARABIC_ENABLED = false;
+
 function read(): Lang {
+  if (!ARABIC_ENABLED) return "en";
   try {
     const q = new URLSearchParams(window.location.search).get("lang");
     if (q === "ar" || q === "en") localStorage.setItem(KEY, q);

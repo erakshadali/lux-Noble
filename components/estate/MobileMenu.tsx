@@ -1,17 +1,27 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
-import { LangToggle, useLang } from "@/lib/estate/lang";
+import { useEffect, useRef, useState } from "react";
+import { useLang } from "@/lib/estate/lang";
 
 // Hamburger menu for phones. The panel slides down under the header.
 export default function MobileMenu({ items }: { items: [string, string, string][] }) {
   const [open, setOpen] = useState(false);
+  const box = useRef<HTMLDivElement>(null);
+
+  // Tapping anywhere outside the menu, or pressing Escape, closes it.
+  useEffect(() => {
+    if (!open) return;
+    const away = (e: Event) => { if (box.current && !box.current.contains(e.target as Node)) setOpen(false); };
+    const esc = (e: KeyboardEvent) => { if (e.key === "Escape") setOpen(false); };
+    document.addEventListener("pointerdown", away);
+    document.addEventListener("keydown", esc);
+    return () => { document.removeEventListener("pointerdown", away); document.removeEventListener("keydown", esc); };
+  }, [open]);
   const ar = useLang() === "ar";
   const bar = "absolute start-0 h-0.5 w-5 rounded bg-current transition duration-300";
   return (
-    <div className="flex items-center gap-2 sm:hidden">
-      <LangToggle className="h-10" />
+    <div ref={box} className="flex items-center gap-2 sm:hidden">
       <button onClick={() => setOpen((o) => !o)} aria-expanded={open} aria-label={open ? (ar ? "إغلاق القائمة" : "Close menu") : ar ? "فتح القائمة" : "Open menu"} className="relative grid h-10 w-10 place-items-center rounded-full border border-[var(--gold)]/50 text-[var(--gold)]">
         <span className="relative block h-3.5 w-5">
           <span className={`${bar} top-0 ${open ? "translate-y-[6px] rotate-45" : ""}`} />
