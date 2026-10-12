@@ -6,6 +6,8 @@ import { ICONS, type IconKey } from "@/lib/pro";
 import { FAQ, REVIEWS, type Item } from "@/lib/salon";
 import { catalogForTheme, copyForTheme, paletteFor, wordingFor, type ThemeKey } from "@/lib/salonThemes";
 import type { Photo } from "@/lib/images";
+import Dust from "@/components/estate/Dust";
+import Effects from "@/components/estate/Effects";
 
 export type SalonProps = {
   slug: string;
@@ -114,6 +116,25 @@ export default function SalonSite(p: SalonProps) {
     on();
     window.addEventListener("scroll", on, { passive: true });
     return () => window.removeEventListener("scroll", on);
+  }, []);
+
+  useEffect(() => {
+    if (!menu) return;
+    const away = (e: Event) => { if (!document.getElementById("salon-nav")?.contains(e.target as Node)) setMenu(false); };
+    const esc = (e: KeyboardEvent) => { if (e.key === "Escape") setMenu(false); };
+    document.addEventListener("pointerdown", away);
+    document.addEventListener("keydown", esc);
+    return () => { document.removeEventListener("pointerdown", away); document.removeEventListener("keydown", esc); };
+  }, [menu]);
+
+  // Sections fade and slide in as they scroll into view.
+  useEffect(() => {
+    const els = Array.from(document.querySelectorAll<HTMLElement>(".salon-root main section:not(#make-it-yours)"));
+    const io = new IntersectionObserver((entries) => {
+      for (const e of entries) if (e.isIntersecting) { e.target.classList.add("ln-in"); io.unobserve(e.target); }
+    }, { threshold: 0.08 });
+    for (const el of els) { el.classList.add("ln-reveal"); io.observe(el); }
+    return () => io.disconnect();
   }, []);
 
   useEffect(() => {
@@ -254,6 +275,7 @@ export default function SalonSite(p: SalonProps) {
 
   return (
     <div className="salon-root" style={vars}>
+      <Effects />
       {/* Demo banner */}
       <div className="sticky top-0 z-50 flex items-center justify-between gap-3 px-4 py-2 text-[13px] text-white md:px-8" style={{ background: "#0B0B0F" }}>
         <p className="truncate">
@@ -265,7 +287,7 @@ export default function SalonSite(p: SalonProps) {
       </div>
 
       {/* Glass nav */}
-      <nav className="fixed inset-x-0 top-[37px] z-40 transition-all duration-300" style={{ background: scrolled || menu ? "color-mix(in srgb, var(--dark) 88%, transparent)" : "transparent", backdropFilter: scrolled || menu ? "blur(14px)" : "none", borderBottom: scrolled ? "1px solid rgba(255,255,255,.08)" : "1px solid transparent" }}>
+      <nav id="salon-nav" className="fixed inset-x-0 top-[37px] z-40 transition-all duration-300" style={{ background: scrolled || menu ? "color-mix(in srgb, var(--dark) 88%, transparent)" : "transparent", backdropFilter: scrolled || menu ? "blur(14px)" : "none", borderBottom: scrolled ? "1px solid rgba(255,255,255,.08)" : "1px solid transparent" }}>
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-4 text-white md:px-8">
           <a href="#top" className="salon-display truncate text-xl font-semibold md:text-2xl">{p.name}</a>
           <div className="hidden items-center gap-8 text-sm font-semibold md:flex">
@@ -297,6 +319,7 @@ export default function SalonSite(p: SalonProps) {
         <Image src={p.photos[0].file} alt="" fill priority sizes="100vw" className="salon-kenburns object-cover opacity-70" />
         <div className="absolute inset-0" style={{ background: "linear-gradient(100deg, color-mix(in srgb, var(--dark) 96%, transparent) 8%, color-mix(in srgb, var(--dark2) 72%, transparent) 48%, transparent 100%)" }} />
         <div className="absolute inset-x-0 bottom-0 h-40" style={{ background: "linear-gradient(to top, var(--bg), transparent)" }} />
+        <Dust />
         <div aria-hidden className="salon-orb absolute -left-24 top-1/3 h-80 w-80 rounded-full blur-3xl" style={{ background: "var(--accent)", opacity: 0.35 }} />
 
         <div className="relative mx-auto grid w-full max-w-6xl grid-cols-[minmax(0,1fr)] gap-10 px-5 pb-28 pt-36 md:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] md:items-center md:px-8 md:pb-24">

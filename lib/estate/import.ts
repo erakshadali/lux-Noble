@@ -42,7 +42,7 @@ export function toListing(r: Record<string, string>): Listing | null {
     amenities: g("amenities", "features").split(/[|;,]+/).map((s) => s.trim()).filter(Boolean),
     photos: photos.length ? photos : FALLBACK_PHOTOS,
     permit: g("permit", "permit_number", "trakheesi", "rera_permit"),
-    agent: g("agent", "agent_name", "listing_agent") || "Lux & Noble team",
+    agent: g("agent", "agent_name", "listing_agent") || "Sales team",
     handover: g("handover", "completion_date") || undefined,
     custom: true,
   };

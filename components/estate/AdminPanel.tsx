@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { useBiz } from "@/lib/estate/biz";
 import { addListings, clearCustom, removeListing, useCustomListings } from "@/lib/estate/store";
 import { CSV_TEMPLATE, parseAny } from "@/lib/estate/import";
 import { aed, TYPES, type Listing } from "@/lib/estate/types";
@@ -10,6 +11,7 @@ const field = "w-full rounded-xl border border-white/15 bg-white/5 px-3 py-2.5 t
 const label = "block text-xs uppercase tracking-wide text-white/55";
 
 export default function AdminPanel() {
+  const biz = useBiz();
   const custom = useCustomListings();
   const [note, setNote] = useState("");
 
@@ -36,7 +38,7 @@ export default function AdminPanel() {
       amenities: s("amenities").split(",").map((a) => a.trim()).filter(Boolean),
       photos: photos.length ? photos : ["/img/pro/estate/1.jpg"],
       permit: s("permit"),
-      agent: s("agent") || "Lux & Noble team",
+      agent: s("agent") || `${biz.short} team`,
       handover: s("handover") || undefined,
       custom: true,
     };
@@ -69,7 +71,7 @@ export default function AdminPanel() {
     <div className="mx-auto max-w-5xl px-5 py-10">
       <h1 className="font-[family-name:var(--font-cormorant)] text-4xl font-semibold">Manage your listings</h1>
       <p className="mt-2 max-w-2xl text-white/70">Add a property below, or upload a CSV or XML export from your CRM or Property Finder / Bayut feed. It shows on the site straight away. In this demo your listings are saved in this browser only. On the real site they go to a database and sync automatically.</p>
-      {note ? <p className="mt-4 rounded-xl border border-emerald-400/40 bg-emerald-400/10 p-3 text-sm text-emerald-300">{note} <Link href="/lux-noble/properties" className="underline">View the site</Link></p> : null}
+      {note ? <p className="mt-4 rounded-xl border border-emerald-400/40 bg-emerald-400/10 p-3 text-sm text-emerald-300">{note} <Link href={`${biz.base}/properties`} className="underline">View the site</Link></p> : null}
 
       <section className="mt-8 rounded-2xl border border-white/10 bg-white/[0.03] p-6">
         <h2 className="text-xl font-semibold">Upload a feed</h2>
@@ -117,7 +119,7 @@ export default function AdminPanel() {
           <ul className="mt-3 divide-y divide-white/10 rounded-2xl border border-white/10">
             {custom.map((l) => (
               <li key={l.id} className="flex items-center justify-between gap-3 p-4 text-sm">
-                <Link href={`/lux-noble/property/${l.id}`} className="min-w-0 truncate hover:text-[var(--gold)]">{l.title} · {aed(l.price)}</Link>
+                <Link href={`${biz.base}/property/${l.id}`} className="min-w-0 truncate hover:text-[var(--gold)]">{l.title} · {aed(l.price)}</Link>
                 <button onClick={() => removeListing(l.id)} className="shrink-0 text-white/60 hover:text-red-400">Remove</button>
               </li>
             ))}

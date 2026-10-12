@@ -2,11 +2,13 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import { useBiz } from "@/lib/estate/biz";
 import { useLang } from "@/lib/estate/lang";
 
 // Hamburger menu for phones. The panel slides down under the header.
 export default function MobileMenu({ items }: { items: [string, string, string][] }) {
   const [open, setOpen] = useState(false);
+  const { base } = useBiz();
   const box = useRef<HTMLDivElement>(null);
 
   // Tapping anywhere outside the menu, or pressing Escape, closes it.
@@ -39,7 +41,7 @@ export default function MobileMenu({ items }: { items: [string, string, string][
             </li>
           ))}
         </ul>
-        <Link href="/lux-noble/admin" onClick={() => setOpen(false)} className="mt-4 block rounded-full bg-[var(--gold)] py-3 text-center font-semibold text-black">{ar ? "إضافة عقارات" : "Add listings"}</Link>
+        <Link href={`${base}/admin`} onClick={() => setOpen(false)} className="mt-4 block rounded-full bg-[var(--gold)] py-3 text-center font-semibold text-black">{ar ? "إضافة عقارات" : "Add listings"}</Link>
       </div>
     </div>
   );

@@ -3,10 +3,12 @@
 import { useState } from "react";
 import { tr } from "@/lib/estate/i18n";
 import { useLang, useT } from "@/lib/estate/lang";
-import { business, TYPES } from "@/lib/estate/types";
+import { useBiz } from "@/lib/estate/biz";
+import { TYPES } from "@/lib/estate/types";
 
 export default function SellForm() {
   const t = useT();
+  const business = useBiz();
   const lang = useLang();
   const [done, setDone] = useState(false);
   const field = "w-full rounded-xl border border-white/15 bg-white/5 px-3 py-2.5 text-sm outline-none focus:border-[var(--gold)] [&>option]:text-black";
@@ -15,7 +17,7 @@ export default function SellForm() {
   function submit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const f = new FormData(e.currentTarget);
-    const text = `Hi Lux & Noble, I want to ${String(f.get("goal")).toLowerCase()} my property.\nType: ${f.get("type")}\nLocation: ${f.get("location")}\nBedrooms: ${f.get("beds")}\nExpected price: ${f.get("price") || "-"}\nName: ${f.get("name")}\nPhone: ${f.get("phone")}`;
+    const text = `Hi ${business.short}, I want to ${String(f.get("goal")).toLowerCase()} my property.\nType: ${f.get("type")}\nLocation: ${f.get("location")}\nBedrooms: ${f.get("beds")}\nExpected price: ${f.get("price") || "-"}\nName: ${f.get("name")}\nPhone: ${f.get("phone")}`;
     setDone(true);
     window.open(`https://wa.me/${business.wa}?text=${encodeURIComponent(text)}`, "_blank");
   }

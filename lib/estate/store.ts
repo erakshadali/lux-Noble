@@ -5,7 +5,16 @@ import { SAMPLE } from "./sample";
 import type { Listing } from "./types";
 
 // Listings the owner adds are kept in this browser (demo). The real site stores them in a database.
-const KEY = "ln-custom-listings";
+let KEY = "ln-custom-listings";
+let FAV = "ln-favs";
+
+// Each brokerage demo keeps its own listings and saved properties in this browser.
+export function setNamespace(ns: string) {
+  const k = ns === "lux-noble" ? "ln-custom-listings" : `ln-custom-${ns}`;
+  if (k === KEY) return;
+  KEY = k;
+  FAV = ns === "lux-noble" ? "ln-favs" : `ln-favs-${ns}`;
+}
 const EMPTY: Listing[] = [];
 let cacheRaw: string | null = null;
 let cacheVal: Listing[] = EMPTY;
@@ -44,7 +53,6 @@ export function useAllListings(): { all: Listing[]; custom: Listing[] } {
 }
 
 // Saved (favourite) properties, kept in this browser.
-const FAV = "ln-favs";
 let favRaw: string | null = null;
 let favVal: string[] = [];
 const favSubs = new Set<() => void>();

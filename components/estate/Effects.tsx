@@ -34,5 +34,5 @@ export default function Effects() {
     };
   }, []);
 
-  return <div ref={bar} className="fixed left-0 top-0 z-50 h-[3px] w-full origin-left scale-x-0 bg-gradient-to-r from-[#c9a45c] via-[#f3e3b6] to-[#c9a45c]" aria-hidden />;
+  return <div ref={bar} className="pointer-events-none fixed left-0 top-0 z-[60] h-[3px] w-full origin-left scale-x-0" style={{ background: "linear-gradient(90deg, var(--accent, #c9a45c), var(--accent2, #f3e3b6), var(--accent, #c9a45c))" }} aria-hidden />;
 }

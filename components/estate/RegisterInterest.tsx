@@ -2,12 +2,13 @@
 
 import { useRef, useState } from "react";
 import { useT } from "@/lib/estate/lang";
-import { business } from "@/lib/estate/types";
+import { useBiz } from "@/lib/estate/biz";
 
 // "Register interest" button that opens a small form and sends it to WhatsApp.
 // The WhatsApp message stays in English so the sales team reads it the same way every time.
 export default function RegisterInterest({ project, projectLabel }: { project: string; projectLabel?: string }) {
   const t = useT();
+  const business = useBiz();
   const dlg = useRef<HTMLDialogElement>(null);
   const [done, setDone] = useState(false);
   const field = "w-full rounded-xl border border-white/15 bg-white/5 px-3 py-2.5 text-sm outline-none focus:border-[var(--gold)]";
@@ -15,7 +16,7 @@ export default function RegisterInterest({ project, projectLabel }: { project: s
   function submit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const f = new FormData(e.currentTarget);
-    const text = `Hi Lux & Noble, please send me the brochure and payment plan for ${project}.\nName: ${f.get("name")}\nPhone: ${f.get("phone")}\nBudget: ${f.get("budget") || "-"}`;
+    const text = `Hi ${business.short}, please send me the brochure and payment plan for ${project}.\nName: ${f.get("name")}\nPhone: ${f.get("phone")}\nBudget: ${f.get("budget") || "-"}`;
     setDone(true);
     window.open(`https://wa.me/${business.wa}?text=${encodeURIComponent(text)}`, "_blank");
   }

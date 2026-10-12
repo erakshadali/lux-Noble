@@ -7,6 +7,7 @@ import type { ThemeKey } from "@/lib/salonThemes";
 import { proPhotosFor } from "@/lib/proImages";
 import { company, whatsappLink } from "@/config/company";
 import { businesses, getBusiness } from "@/lib/data";
+import { getAgent } from "@/lib/estate/agents";
 
 export const dynamicParams = false;
 
@@ -36,6 +37,11 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
   const { slug } = await params;
   const b = getBusiness(slug);
   if (!b) notFound();
+  const agent = getAgent(slug);
+  if (agent) {
+    const { default: EstateHome } = await import("@/components/estate/EstateHome");
+    return <EstateHome biz={agent} />;
+  }
   const theme = b.premium || b.batch === 11 ? themeOf(b.sub) : null;
   if (theme) {
     const photos = proPhotosFor(b);

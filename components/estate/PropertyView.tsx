@@ -3,15 +3,16 @@
 import Link from "next/link";
 import { useState } from "react";
 import { beds, fmtNum, listingText, money, perMonth, perYear, quarter, sqft, tr } from "@/lib/estate/i18n";
+import { useBiz } from "@/lib/estate/biz";
 import { useLang, useT } from "@/lib/estate/lang";
 import { useAllListings } from "@/lib/estate/store";
-import { business } from "@/lib/estate/types";
 import BackLink from "./BackLink";
 import FavButton from "./FavButton";
 import ListingCard from "./ListingCard";
 
 export default function PropertyView({ id }: { id: string }) {
   const { all } = useAllListings();
+  const business = useBiz();
   const lang = useLang();
   const t = useT();
   const ar = lang === "ar";
@@ -23,14 +24,14 @@ export default function PropertyView({ id }: { id: string }) {
       <div className="mx-auto max-w-xl px-5 py-24 text-center">
         <h1 className="font-[family-name:var(--font-cormorant)] text-4xl">{t("Property not found", "العقار غير موجود")}</h1>
         <p className="mt-3 text-white/60">{t("It may have been removed, or it was added in another browser.", "ربما تمت إزالته، أو أنه أُضيف من متصفح آخر.")}</p>
-        <Link href="/lux-noble/properties" className="mt-6 inline-block rounded-full bg-[var(--gold)] px-6 py-3 font-semibold text-black">{t("Browse properties", "تصفّح العقارات")}</Link>
+        <Link href={`${business.base}/properties`} className="mt-6 inline-block rounded-full bg-[var(--gold)] px-6 py-3 font-semibold text-black">{t("Browse properties", "تصفّح العقارات")}</Link>
       </div>
     );
   }
   const text = listingText(l, lang);
   const similar = all.filter((x) => x.id !== l.id && x.purpose === l.purpose).slice(0, 3);
   // WhatsApp messages stay in English so the sales team reads them the same way every time.
-  const msg = `Hi Lux & Noble, I'm interested in ${l.title} (${l.ref}), AED ${fmtNum(l.price)}${l.purpose === "Rent" ? " / year" : ""}.`;
+  const msg = `Hi ${business.short}, I'm interested in ${l.title} (${l.ref}), AED ${fmtNum(l.price)}${l.purpose === "Rent" ? " / year" : ""}.`;
   const wa = `https://wa.me/${business.wa}?text=${encodeURIComponent(msg)}`;
 
   function book(e: React.FormEvent<HTMLFormElement>) {
@@ -85,7 +86,7 @@ export default function PropertyView({ id }: { id: string }) {
           <div className="mt-6 rounded-xl border border-white/10 bg-white/[0.03] p-4 text-sm text-white/70">
             <p><strong className="text-white">{t("Agent:", "الوكيل:")}</strong> {tr(l.agent, lang)}</p>
             <p><strong className="text-white">{t("Permit (Trakheesi):", "رقم التصريح (ترخيصي):")}</strong> {l.permit === "SAMPLE" ? t("Sample listing. The real permit number and QR code show here.", "إعلان تجريبي. يظهر هنا رقم التصريح الحقيقي ورمز الاستجابة السريعة.") : l.permit || t("Add the permit number", "أضف رقم التصريح")}</p>
-            <p><strong className="text-white">{t("Brokerage:", "الوسيط:")}</strong> {ar ? "لوكس آند نوبل الدولية للعقارات ذ.م.م" : business.name}</p>
+            <p><strong className="text-white">{t("Brokerage:", "الوسيط:")}</strong> {business.name}</p>
           </div>
           <iframe title={t("Map", "الخريطة")} loading="lazy" className="mt-6 h-64 w-full rounded-2xl border-0" src={`https://www.google.com/maps?q=${encodeURIComponent(`${l.community} ${l.city}`)}&output=embed`} />
         </div>

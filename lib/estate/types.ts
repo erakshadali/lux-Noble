@@ -23,7 +23,21 @@ export type Listing = {
 
 export const TYPES: Listing["type"][] = ["Apartment", "Villa", "Townhouse", "Penthouse", "Studio", "Office"];
 
-export const business = {
+// One brokerage the site is shown for. `base` is the URL prefix of its pages, `ns` keeps its saved data apart.
+export type Biz = {
+  name: string;
+  short: string;
+  phone: string;
+  tel: string;
+  wa: string;
+  address: string;
+  lat: number;
+  lon: number;
+  base: string;
+  ns: string;
+};
+
+export const LUX: Biz = {
   name: "Lux & Noble International Real Estate LLC",
   short: "Lux & Noble",
   phone: "+971 54 566 0141",
@@ -32,6 +46,8 @@ export const business = {
   address: "502, Al Zarouni Business Center, Sheikh Zayed Road, Business Bay, Dubai",
   lat: 25.183189,
   lon: 55.272049,
+  base: "/lux-noble",
+  ns: "lux-noble",
 };
 
 export const aed = (n: number) => "AED " + Math.round(n).toLocaleString("en-US");
