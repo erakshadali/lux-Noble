@@ -42,3 +42,9 @@ next-env.d.ts
 
 .vercel
 .env*
+
+# private slugs and local Claude files
+.callslug
+.mailslug
+.tapslug
+.claude/
