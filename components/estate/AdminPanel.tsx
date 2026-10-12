@@ -67,7 +67,7 @@ export default function AdminPanel() {
 
   return (
     <div className="mx-auto max-w-5xl px-5 py-10">
-      <h1 className="font-[var(--font-cormorant)] text-4xl font-semibold">Manage your listings</h1>
+      <h1 className="font-[family-name:var(--font-cormorant)] text-4xl font-semibold">Manage your listings</h1>
       <p className="mt-2 max-w-2xl text-white/70">Add a property below, or upload a CSV or XML export from your CRM or Property Finder / Bayut feed. It shows on the site straight away. In this demo your listings are saved in this browser only. On the real site they go to a database and sync automatically.</p>
       {note ? <p className="mt-4 rounded-xl border border-emerald-400/40 bg-emerald-400/10 p-3 text-sm text-emerald-300">{note} <Link href="/lux-noble/properties" className="underline">View the site</Link></p> : null}
 

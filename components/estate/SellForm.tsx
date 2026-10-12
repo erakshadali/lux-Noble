@@ -17,7 +17,7 @@ export default function SellForm() {
 
   return (
     <form onSubmit={submit} className="space-y-3 rounded-2xl border border-white/10 bg-white/[0.04] p-6">
-      <h2 className="font-[var(--font-cormorant)] text-2xl font-semibold">Get a free valuation</h2>
+      <h2 className="font-[family-name:var(--font-cormorant)] text-2xl font-semibold">Get a free valuation</h2>
       <div className="grid grid-cols-2 gap-3">
         <select name="goal" className={field}><option>Sell</option><option>Rent out</option></select>
         <select name="type" className={field}>{TYPES.map((t) => <option key={t}>{t}</option>)}</select>

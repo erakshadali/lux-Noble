@@ -68,8 +68,8 @@ export default function ListingsBrowser({ limit, persist = false }: { limit?: nu
 
   return (
     <div>
-      <div className="grid gap-3 rounded-2xl border border-white/10 bg-white/[0.03] p-4 sm:grid-cols-3 lg:grid-cols-7">
-        <input className={input + " lg:col-span-2"} placeholder="Search area, title or ref" value={q} onChange={(e) => setQ(e.target.value)} />
+      <div className="grid grid-cols-2 gap-3 rounded-2xl border border-white/10 bg-white/[0.03] p-4 sm:grid-cols-3 lg:grid-cols-7">
+        <input className={input + " col-span-2"} placeholder="Search area, title or ref" value={q} onChange={(e) => setQ(e.target.value)} />
         <select className={input} value={purpose} onChange={(e) => setPurpose(e.target.value)} aria-label="Buy or rent">
           <option value="">Buy or rent</option><option value="Buy">Buy</option><option value="Rent">Rent</option>
         </select>
@@ -89,7 +89,7 @@ export default function ListingsBrowser({ limit, persist = false }: { limit?: nu
       </div>
       <div className="mt-4 flex flex-wrap items-center justify-between gap-3 text-sm text-white/70">
         <p>{list.length} {list.length === 1 ? "property" : "properties"}{offplan ? " (off-plan)" : ""} · <button onClick={reset} className="underline hover:text-white">Reset filters</button></p>
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
           <button onClick={() => setSaved((s) => !s)} aria-pressed={saved} className={`rounded-lg border px-3 py-1.5 ${saved ? "border-[var(--gold)] text-[var(--gold)]" : "border-white/15"}`}>♥ Saved ({favs.length})</button>
           <div className="flex rounded-lg border border-white/15 p-0.5">
             <button onClick={() => setView("list")} className={tab(view === "list")}>List</button>

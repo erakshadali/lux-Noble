@@ -23,7 +23,7 @@ export default function RegisterInterest({ project, label = "Register interest" 
       <dialog ref={dlg} onClick={(e) => { if (e.target === dlg.current) dlg.current?.close(); }} className="m-auto w-[92vw] max-w-md rounded-2xl border border-white/15 bg-[#0b0f1a] p-0 text-white backdrop:bg-black/70 backdrop:backdrop-blur-sm">
         <form onSubmit={submit} className="space-y-3 p-6">
           <div className="flex items-start justify-between gap-4">
-            <h2 className="font-[var(--font-cormorant)] text-2xl font-semibold">Get early access<br /><span className="text-[var(--gold)]">{project}</span></h2>
+            <h2 className="font-[family-name:var(--font-cormorant)] text-2xl font-semibold">Get early access<br /><span className="text-[var(--gold)]">{project}</span></h2>
             <button type="button" onClick={() => dlg.current?.close()} aria-label="Close" className="text-2xl leading-none text-white/60 hover:text-white">×</button>
           </div>
           <input name="name" required placeholder="Your name" className={field} />

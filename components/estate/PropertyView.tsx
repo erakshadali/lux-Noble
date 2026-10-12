@@ -16,7 +16,7 @@ export default function PropertyView({ id }: { id: string }) {
   if (!l) {
     return (
       <div className="mx-auto max-w-xl px-5 py-24 text-center">
-        <h1 className="font-[var(--font-cormorant)] text-4xl">Property not found</h1>
+        <h1 className="font-[family-name:var(--font-cormorant)] text-4xl">Property not found</h1>
         <p className="mt-3 text-white/60">It may have been removed, or it was added in another browser.</p>
         <Link href="/lux-noble/properties" className="mt-6 inline-block rounded-full bg-[var(--gold)] px-6 py-3 font-semibold text-black">Browse properties</Link>
       </div>
@@ -45,7 +45,7 @@ export default function PropertyView({ id }: { id: string }) {
   return (
     <div className="mx-auto max-w-6xl px-5 py-8">
       <BackLink />
-      <div className="mt-4 grid gap-8 lg:grid-cols-[1fr_380px]">
+      <div className="mt-4 grid grid-cols-[minmax(0,1fr)] gap-8 lg:grid-cols-[minmax(0,1fr)_380px]">
         <div>
           <div className="relative aspect-[16/10] overflow-hidden rounded-2xl">
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -53,7 +53,7 @@ export default function PropertyView({ id }: { id: string }) {
             <FavButton id={l.id} className="absolute right-4 top-4" />
           </div>
           {l.photos.length > 1 ? (
-            <div className="mt-3 flex gap-2 overflow-x-auto">
+            <div className="mt-3 flex gap-2 overflow-x-auto pb-1 [scrollbar-width:none]">
               {l.photos.map((p, n) => (
                 <button key={p + n} onClick={() => setI(n)} aria-label={`Photo ${n + 1}`} className={`h-16 w-24 shrink-0 overflow-hidden rounded-lg border-2 ${n === i ? "border-[var(--gold)]" : "border-transparent opacity-70"}`}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -62,7 +62,7 @@ export default function PropertyView({ id }: { id: string }) {
               ))}
             </div>
           ) : null}
-          <h1 className="mt-6 font-[var(--font-cormorant)] text-4xl font-semibold">{l.title}</h1>
+          <h1 className="mt-6 font-[family-name:var(--font-cormorant)] text-4xl font-semibold">{l.title}</h1>
           <p className="mt-1 text-white/60">{[l.community, l.city].filter(Boolean).join(", ")}</p>
           <p className="mt-4 text-3xl font-semibold text-[var(--gold)]">{aed(l.price)}{l.purpose === "Rent" ? <span className="text-base font-normal text-white/60"> / year</span> : null}</p>
           <dl className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
@@ -84,7 +84,7 @@ export default function PropertyView({ id }: { id: string }) {
 
         <aside className="lg:sticky lg:top-24 lg:self-start">
           <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-5">
-            <h2 className="font-[var(--font-cormorant)] text-2xl font-semibold">Book a viewing</h2>
+            <h2 className="font-[family-name:var(--font-cormorant)] text-2xl font-semibold">Book a viewing</h2>
             <form onSubmit={book} className="mt-4 space-y-3">
               <input name="name" required placeholder="Your name" className={field} />
               <input name="phone" required placeholder="Phone / WhatsApp" className={field} />
@@ -104,7 +104,7 @@ export default function PropertyView({ id }: { id: string }) {
         </aside>
       </div>
       {similar.length ? (
-        <section className="mt-14"><h2 className="font-[var(--font-cormorant)] text-3xl font-semibold">Similar properties</h2><div className="mt-5 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">{similar.map((s) => <ListingCard key={s.id} l={s} />)}</div></section>
+        <section className="mt-14"><h2 className="font-[family-name:var(--font-cormorant)] text-3xl font-semibold">Similar properties</h2><div className="mt-5 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">{similar.map((s) => <ListingCard key={s.id} l={s} />)}</div></section>
       ) : null}
     </div>
   );

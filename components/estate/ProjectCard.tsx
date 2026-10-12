@@ -12,7 +12,7 @@ export default function ProjectCard({ p }: { p: Project }) {
       </div>
       <div className="p-5">
         <p className="text-xs uppercase tracking-widest text-white/50">{p.community} · {p.developer}</p>
-        <h3 className="mt-1 font-[var(--font-cormorant)] text-2xl font-semibold">{p.name}</h3>
+        <h3 className="mt-1 font-[family-name:var(--font-cormorant)] text-2xl font-semibold">{p.name}</h3>
         <p className="mt-3 text-sm text-white/60">Starting from</p>
         <p className="text-2xl font-semibold text-[var(--gold)]">{aed(p.from)}</p>
         <p className="mt-2 rounded-lg bg-white/5 px-3 py-2 text-sm"><strong>{p.plan} plan</strong> · <span className="text-white/70">{p.planNote}</span></p>
