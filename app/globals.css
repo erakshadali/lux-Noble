@@ -588,3 +588,7 @@ a:focus-visible {
 .ln-ar h1, .ln-ar h2, .ln-ar h3 { line-height: 1.35; }
 .ln-ar .ln-line { transform-origin: right; background: linear-gradient(270deg, #c9a45c, transparent); }
 .ln-ar .ln-gold-text { animation-direction: reverse; }
+
+.ln-beam { background: linear-gradient(100deg, transparent, rgba(243, 213, 138, 0.10) 50%, transparent); transform: skewX(-18deg) translateX(-100%); animation: ln-beam 9s ease-in-out infinite; }
+@keyframes ln-beam { 0% { transform: skewX(-18deg) translateX(-100%); } 55%, 100% { transform: skewX(-18deg) translateX(520%); } }
+@media (prefers-reduced-motion: reduce) { .ln-beam { animation: none; opacity: 0; } }

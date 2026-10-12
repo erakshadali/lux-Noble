@@ -125,14 +125,16 @@ export default function HeroArt() {
     <div ref={root} className="pointer-events-none absolute inset-0 -z-10 overflow-hidden" aria-hidden>
       <div ref={photo} className="absolute -inset-x-4 -top-10 bottom-0 will-change-transform">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/img/pro/estate/hero.jpg" alt="" className="ln-zoom h-full w-full object-cover opacity-60" />
+        <img src="/img/pro/estate/hero.jpg" alt="" className="ln-zoom h-full w-full object-cover object-[47%_center] opacity-55" />
       </div>
       <div className="absolute inset-0 bg-gradient-to-b from-[#0b0f1a]/30 via-[#0b0f1a]/65 to-[#0b0f1a]" />
       <div ref={glow} className="absolute left-0 top-0 h-[600px] w-[600px] rounded-full opacity-0 transition-opacity duration-700" style={{ background: "radial-gradient(closest-side, rgba(201,164,92,0.22), transparent)" }} />
       <div className="ln-aurora absolute -right-40 -top-40 h-[520px] w-[520px] rounded-full blur-3xl" style={{ background: "radial-gradient(closest-side, rgba(201,164,92,0.28), transparent)" }} />
       <canvas ref={canvas} className="absolute inset-0 h-full w-full" />
 
-      <svg ref={back} viewBox="0 0 1440 300" preserveAspectRatio="xMidYMax slice" className="absolute inset-x-0 bottom-0 h-[46%] min-h-[180px] w-full will-change-transform">
+      <div className="ln-beam absolute inset-y-0 -left-1/3 w-1/3" />
+      <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse at 50% 45%, transparent 35%, rgba(5,8,16,0.65) 100%)" }} />
+      <svg ref={back} viewBox="0 0 1440 300" preserveAspectRatio="xMidYMax slice" className="absolute inset-x-0 bottom-0 h-[26%] min-h-[120px] w-full sm:h-[46%] sm:min-h-[180px] will-change-transform">
         <defs>
           <linearGradient id="ln-back" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#1b2540" /><stop offset="1" stopColor="#0b0f1a" /></linearGradient>
           <linearGradient id="ln-front" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#111830" /><stop offset="1" stopColor="#0b0f1a" /></linearGradient>
@@ -141,10 +143,11 @@ export default function HeroArt() {
         <g transform="translate(985 300) scale(1.1)"><path d={spire} fill="url(#ln-back)" stroke="#c9a45c" strokeOpacity="0.55" strokeWidth="0.8" /></g>
         <Windows list={BACK} seed={3} base={300} />
       </svg>
-      <svg ref={front} viewBox="0 0 1440 300" preserveAspectRatio="xMidYMax slice" className="absolute inset-x-0 bottom-0 h-[34%] min-h-[130px] w-full will-change-transform">
+      <svg ref={front} viewBox="0 0 1440 300" preserveAspectRatio="xMidYMax slice" className="absolute inset-x-0 bottom-0 h-[18%] min-h-[90px] w-full sm:h-[34%] sm:min-h-[130px] will-change-transform">
         {FRONT.map((t, i) => <rect key={i} x={t.x + 20} y={300 - t.h} width={t.w} height={t.h} fill="url(#ln-front)" stroke="#c9a45c" strokeOpacity="0.18" strokeWidth="0.6" />)}
         <Windows list={FRONT.map((t) => ({ ...t, x: t.x + 20 }))} seed={11} base={300} />
       </svg>
+      <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-[#c9a45c] to-transparent opacity-70" />
     </div>
   );
 }
