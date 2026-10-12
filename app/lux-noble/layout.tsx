@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Cormorant_Garamond } from "next/font/google";
 import { business } from "@/lib/estate/types";
 import HeaderArt from "@/components/estate/HeaderArt";
+import MobileMenu from "@/components/estate/MobileMenu";
 import Effects from "@/components/estate/Effects";
 
 const cormorant = Cormorant_Garamond({ variable: "--font-cormorant", subsets: ["latin"], weight: ["500", "600", "700"] });
@@ -25,21 +26,19 @@ export default function LuxNobleLayout({ children }: { children: React.ReactNode
   return (
     <div className={`${cormorant.variable} min-h-screen bg-[#0b0f1a] text-white [--gold:#c9a45c]`}>
       <Effects />
-      <header className="sticky top-0 z-30 overflow-hidden border-b border-[var(--gold)]/25 bg-[#0b0f1a]/95 backdrop-blur">
+      <header className="sticky top-0 z-30 border-b border-[var(--gold)]/25 bg-[#0b0f1a]/95 backdrop-blur">
         <HeaderArt />
-        <div className="relative z-10 mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 pb-3 pt-4 sm:pb-8">
+        <div className="relative z-10 mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 pb-5 pt-3 sm:pb-8 sm:pt-4">
           <Link href="/lux-noble" className="flex items-center gap-2.5 font-[family-name:var(--font-cormorant)] text-2xl font-bold tracking-wide">
             <svg viewBox="0 0 24 24" className="ln-mark h-7 w-7" aria-hidden><rect x="2" y="10" width="6" height="12" rx="0.5" fill="#c9a45c" /><rect x="9" y="3" width="6" height="19" rx="0.5" fill="#f3d58a" /><rect x="16" y="7" width="6" height="15" rx="0.5" fill="#c9a45c" /></svg>
             <span>Lux <span className="text-[var(--gold)]">&amp;</span> Noble</span>
           </Link>
           <nav className="flex items-center gap-5 text-sm">
             {nav.map(([t, h]) => <Link key={t} href={h} className="ln-navlink hidden text-white/75 transition hover:text-[var(--gold)] sm:block">{t}</Link>)}
-            <Link href="/lux-noble/admin" className="rounded-full border border-[var(--gold)]/60 px-4 py-2 font-semibold text-[var(--gold)] hover:bg-[var(--gold)] hover:text-black">Add listings</Link>
+            <Link href="/lux-noble/admin" className="hidden rounded-full border border-[var(--gold)]/60 px-4 py-2 font-semibold text-[var(--gold)] hover:bg-[var(--gold)] hover:text-black sm:block">Add listings</Link>
+            <MobileMenu items={nav} />
           </nav>
         </div>
-        <nav className="relative z-10 flex gap-2 overflow-x-auto px-5 pb-9 text-sm sm:hidden [scrollbar-width:none]" aria-label="Sections">
-          {nav.map(([t, h]) => <Link key={t} href={h} className="shrink-0 rounded-full border border-white/15 px-4 py-1.5 text-white/80 active:border-[var(--gold)]">{t}</Link>)}
-        </nav>
       </header>
       <div className="bg-[var(--gold)]/15 px-5 py-2 text-center text-xs text-[var(--gold)]">Demo with sample properties. Add your own on the <Link href="/lux-noble/admin" className="underline">Add listings</Link> page.</div>
       <main>{children}</main>

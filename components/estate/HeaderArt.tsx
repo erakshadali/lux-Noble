@@ -89,7 +89,7 @@ export default function HeaderArt() {
     <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
       <div className="ln-aurora absolute -left-24 -top-24 h-64 w-64 rounded-full blur-3xl" style={{ background: "radial-gradient(closest-side, rgba(201,164,92,0.22), transparent)" }} />
       <canvas ref={cv} className="absolute inset-0 h-full w-full" />
-      <svg viewBox="0 0 1500 40" preserveAspectRatio="xMidYMax slice" className="absolute inset-x-0 bottom-0 h-7 w-full sm:h-9">
+      <svg viewBox="0 0 1500 40" preserveAspectRatio="xMidYMax slice" className="absolute inset-x-0 bottom-0 h-5 w-full sm:h-9">
         <defs><linearGradient id="ln-hb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#1d2845" /><stop offset="1" stopColor="#0b0f1a" /></linearGradient></defs>
         {BUILDINGS.map((b, i) => (
           <g key={i}>
