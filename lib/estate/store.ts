@@ -42,3 +42,34 @@ export function useAllListings(): { all: Listing[]; custom: Listing[] } {
   const custom = useCustomListings();
   return { all: custom.length ? [...custom, ...SAMPLE] : SAMPLE, custom };
 }
+
+// Saved (favourite) properties, kept in this browser.
+const FAV = "ln-favs";
+let favRaw: string | null = null;
+let favVal: string[] = [];
+const favSubs = new Set<() => void>();
+
+function readFavs(): string[] {
+  let raw: string | null = null;
+  try { raw = localStorage.getItem(FAV); } catch {}
+  if (raw === favRaw) return favVal;
+  favRaw = raw;
+  try { favVal = raw ? (JSON.parse(raw) as string[]) : []; } catch { favVal = []; }
+  return favVal;
+}
+
+export function toggleFav(id: string) {
+  const cur = readFavs();
+  const next = cur.includes(id) ? cur.filter((x) => x !== id) : [...cur, id];
+  try { localStorage.setItem(FAV, JSON.stringify(next)); } catch {}
+  favSubs.forEach((f) => f());
+}
+
+const NO_FAVS: string[] = [];
+export function useFavs(): string[] {
+  return useSyncExternalStore(
+    (cb) => { favSubs.add(cb); window.addEventListener("storage", cb); return () => { favSubs.delete(cb); window.removeEventListener("storage", cb); }; },
+    readFavs,
+    () => NO_FAVS,
+  );
+}

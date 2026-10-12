@@ -4,6 +4,8 @@ import Link from "next/link";
 import { useState } from "react";
 import { useAllListings } from "@/lib/estate/store";
 import { aed, bedsLabel, business } from "@/lib/estate/types";
+import BackLink from "./BackLink";
+import FavButton from "./FavButton";
 import ListingCard from "./ListingCard";
 
 export default function PropertyView({ id }: { id: string }) {
@@ -42,12 +44,13 @@ export default function PropertyView({ id }: { id: string }) {
 
   return (
     <div className="mx-auto max-w-6xl px-5 py-8">
-      <Link href="/lux-noble/properties" className="text-sm text-white/60 hover:text-[var(--gold)]">← All properties</Link>
+      <BackLink />
       <div className="mt-4 grid gap-8 lg:grid-cols-[1fr_380px]">
         <div>
           <div className="relative aspect-[16/10] overflow-hidden rounded-2xl">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={l.photos[i] ?? l.photos[0]} alt={l.title} className="h-full w-full object-cover" />
+            <FavButton id={l.id} className="absolute right-4 top-4" />
           </div>
           {l.photos.length > 1 ? (
             <div className="mt-3 flex gap-2 overflow-x-auto">
