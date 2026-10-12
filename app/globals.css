@@ -579,3 +579,12 @@ a:focus-visible {
 .ln-mark rect:nth-child(3) { animation-delay: 0.8s; }
 @keyframes ln-grow { from { transform: scaleY(0.72); } to { transform: scaleY(1); } }
 @media (prefers-reduced-motion: reduce) { .ln-travel, .ln-mark rect { animation: none; } }
+
+/* Lux & Noble: Arabic (right-to-left) */
+.ln-ar { font-family: var(--font-cairo), system-ui, sans-serif; }
+.ln-ar [class*="font-cormorant"], .ln-ar [class*="cormorant"] { font-family: var(--font-cairo), system-ui, sans-serif !important; letter-spacing: 0 !important; }
+.ln-ar .uppercase { text-transform: none; letter-spacing: 0.02em; }
+.ln-ar .tracking-widest, .ln-ar [class*="tracking-["] { letter-spacing: 0; }
+.ln-ar h1, .ln-ar h2, .ln-ar h3 { line-height: 1.35; }
+.ln-ar .ln-line { transform-origin: right; background: linear-gradient(270deg, #c9a45c, transparent); }
+.ln-ar .ln-gold-text { animation-direction: reverse; }

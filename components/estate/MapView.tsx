@@ -4,11 +4,14 @@ import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import { useEffect, useRef } from "react";
 import { coordsOf } from "@/lib/estate/geo";
-import { aed, type Listing } from "@/lib/estate/types";
+import type { Listing } from "@/lib/estate/types";
+import { listingText, money } from "@/lib/estate/i18n";
+import { useLang } from "@/lib/estate/lang";
 
 const short = (n: number) => (n >= 1e6 ? `${(n / 1e6).toFixed(n % 1e6 ? 1 : 0)}M` : `${Math.round(n / 1e3)}K`);
 
 export default function MapView({ list }: { list: Listing[] }) {
+  const lang = useLang();
   const el = useRef<HTMLDivElement>(null);
   const map = useRef<L.Map | null>(null);
   const layer = useRef<L.LayerGroup | null>(null);
@@ -37,11 +40,11 @@ export default function MapView({ list }: { list: Listing[] }) {
       const a = document.createElement("a");
       a.href = `/lux-noble/property/${l.id}`;
       a.style.cssText = "color:#111;font:600 13px sans-serif;text-decoration:none";
-      a.textContent = `${l.title} · ${aed(l.price)}`;
+      a.textContent = `${listingText(l, lang).title} · ${money(l.price, lang)}`;
       L.marker(c, { icon }).bindPopup(a).addTo(g);
     }
     if (pts.length) m.fitBounds(L.latLngBounds(pts), { padding: [40, 40], maxZoom: 14 });
-  }, [list]);
+  }, [list, lang]);
 
-  return <div ref={el} className="h-[520px] w-full overflow-hidden rounded-2xl border border-white/10" role="region" aria-label="Map of properties" />;
+  return <div ref={el} dir="ltr" className="h-[520px] w-full overflow-hidden rounded-2xl border border-white/10" role="region" aria-label="Map of properties" />;
 }

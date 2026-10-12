@@ -2,10 +2,12 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useT } from "@/lib/estate/lang";
 
 // Returns to the property list with the filters the visitor had set.
 export default function BackLink() {
   const router = useRouter();
+  const t = useT();
   return (
     <Link
       href="/lux-noble/properties"
@@ -17,7 +19,7 @@ export default function BackLink() {
       }}
       className="text-sm text-white/60 hover:text-[var(--gold)]"
     >
-      ← All properties
+      {t("← All properties", "→ كل العقارات")}
     </Link>
   );
 }

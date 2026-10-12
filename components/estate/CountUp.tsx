@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 
-export default function CountUp({ to, suffix = "" }: { to: number; suffix?: string }) {
+export default function CountUp({ to, suffix = null }: { to: number; suffix?: React.ReactNode }) {
   const ref = useRef<HTMLSpanElement>(null);
   const [n, setN] = useState(0);
   useEffect(() => {
