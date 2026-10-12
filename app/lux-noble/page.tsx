@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Suspense } from "react";
+import HeroArt from "@/components/estate/HeroArt";
 import CountUp from "@/components/estate/CountUp";
 import ListingsBrowser from "@/components/estate/ListingsBrowser";
 import ProjectCard from "@/components/estate/ProjectCard";
@@ -7,6 +8,19 @@ import Reveal from "@/components/estate/Reveal";
 import { PROJECTS } from "@/lib/estate/projects";
 import { SAMPLE } from "@/lib/estate/sample";
 import { business } from "@/lib/estate/types";
+
+// Headline that rises in word by word.
+function Words({ text, start, gold = false }: { text: string; start: number; gold?: boolean }) {
+  return (
+    <>
+      {text.split(" ").map((w, i) => (
+        <span key={i} className="ln-word mr-[0.25em]">
+          <span className={gold ? "ln-gold-text" : ""} style={{ ["--w" as string]: `${start + i * 110}ms` }}>{w}</span>
+        </span>
+      ))}
+    </>
+  );
+}
 
 const areas = ["Dubai Marina", "Downtown Dubai", "Business Bay", "Palm Jumeirah", "Dubai Hills Estate", "JVC"];
 const stats: [number, string, string][] = [
@@ -25,19 +39,21 @@ export default function Page() {
   return (
     <>
       <section className="relative isolate overflow-hidden">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/img/pro/estate/2.jpg" alt="" className="ln-zoom absolute inset-0 -z-10 h-full w-full object-cover opacity-40" />
-        <div className="absolute inset-0 -z-10 bg-gradient-to-b from-[#0b0f1a]/30 via-[#0b0f1a]/70 to-[#0b0f1a]" />
-        <div className="mx-auto max-w-6xl px-5 py-24 sm:py-36">
+        <HeroArt />
+        <div className="mx-auto max-w-6xl px-5 pb-40 pt-24 sm:pb-52 sm:pt-36">
           <Reveal><p className="text-sm uppercase tracking-[0.3em] text-[var(--gold)]">Dubai real estate</p></Reveal>
-          <Reveal delay={120}><h1 className="mt-4 max-w-3xl font-[family-name:var(--font-cormorant)] text-5xl font-semibold leading-[1.05] sm:text-7xl">Find a home <span className="ln-gold-text">worthy of your name.</span></h1></Reveal>
+          <h1 className="mt-4 max-w-3xl font-[family-name:var(--font-cormorant)] text-5xl font-semibold leading-[1.05] sm:text-7xl">
+            <Words text="Find a home" start={150} />
+            <br />
+            <Words text="worthy of your name." start={550} gold />
+          </h1>
           <Reveal delay={240}><p className="mt-5 max-w-xl text-lg text-white/75">Apartments, villas and off-plan projects across Dubai. Book a viewing in 30 seconds and we reply on WhatsApp.</p></Reveal>
           <Reveal delay={360}>
             <form action="/lux-noble/properties" className="mt-10 grid max-w-3xl gap-3 rounded-2xl border border-white/15 bg-black/40 p-4 backdrop-blur sm:grid-cols-[1fr_1fr_1.3fr_auto]">
               <select name="purpose" className="rounded-xl border border-white/15 bg-white/5 px-3 py-3 text-sm [&>option]:text-black" aria-label="Buy or rent"><option value="Buy">Buy</option><option value="Rent">Rent</option></select>
               <select name="type" className="rounded-xl border border-white/15 bg-white/5 px-3 py-3 text-sm [&>option]:text-black" aria-label="Type"><option value="">Any type</option><option>Apartment</option><option>Villa</option><option>Townhouse</option><option>Penthouse</option></select>
               <input name="q" placeholder="Area or project" className="rounded-xl border border-white/15 bg-white/5 px-3 py-3 text-sm placeholder:text-white/40" />
-              <button className="rounded-xl bg-[var(--gold)] px-6 py-3 font-semibold text-black transition hover:brightness-110">Search</button>
+              <button className="ln-btn-shine rounded-xl bg-[var(--gold)] px-6 py-3 font-semibold text-black transition hover:brightness-110">Search</button>
             </form>
             <div className="mt-6 flex flex-wrap gap-2">
               {areas.map((a) => <Link key={a} href={`/lux-noble/properties?q=${encodeURIComponent(a)}`} className="rounded-full border border-white/20 px-4 py-1.5 text-sm text-white/80 transition hover:border-[var(--gold)] hover:text-[var(--gold)]">{a}</Link>)}
@@ -45,6 +61,18 @@ export default function Page() {
           </Reveal>
         </div>
       </section>
+
+      <div className="overflow-hidden border-t border-[var(--gold)]/30 bg-[#0b0f1a] py-4" aria-hidden>
+        <div className="ln-marquee font-[family-name:var(--font-cormorant)] text-2xl text-white/60">
+          {[0, 1].map((k) => (
+            <div key={k} className="flex shrink-0 items-center">
+              {["Dubai Marina", "Downtown Dubai", "Business Bay", "Palm Jumeirah", "Dubai Hills Estate", "Jumeirah Village Circle", "Dubai Creek Harbour", "Al Barsha", "DIFC", "Jumeirah Lake Towers"].map((a) => (
+                <span key={a} className="flex items-center whitespace-nowrap">{a}<span className="mx-8 text-[var(--gold)]">◆</span></span>
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
 
       <section className="border-y border-white/10 bg-white/[0.02]">
         <div className="mx-auto grid max-w-6xl grid-cols-2 gap-6 px-5 py-8 text-center sm:grid-cols-4">
@@ -57,7 +85,7 @@ export default function Page() {
       <section className="mx-auto max-w-6xl px-5 pt-16">
         <Reveal>
           <div className="mb-6 flex items-end justify-between">
-            <h2 className="font-[family-name:var(--font-cormorant)] text-4xl font-semibold">Featured properties</h2>
+            <h2 className="font-[family-name:var(--font-cormorant)] text-4xl font-semibold">Featured properties<span className="ln-line" /></h2>
             <Link href="/lux-noble/properties" className="text-sm text-[var(--gold)] hover:underline">View all</Link>
           </div>
         </Reveal>
@@ -69,7 +97,7 @@ export default function Page() {
           <div className="mb-6 flex items-end justify-between">
             <div>
               <p className="text-sm uppercase tracking-[0.25em] text-[var(--gold)]">New launches</p>
-              <h2 className="font-[family-name:var(--font-cormorant)] text-4xl font-semibold">Off-plan projects</h2>
+              <h2 className="font-[family-name:var(--font-cormorant)] text-4xl font-semibold">Off-plan projects<span className="ln-line" /></h2>
             </div>
             <Link href="/lux-noble/off-plan" className="text-sm text-[var(--gold)] hover:underline">All projects</Link>
           </div>
@@ -96,7 +124,7 @@ export default function Page() {
 
       <section className="mx-auto max-w-6xl px-5 pt-20">
         <Reveal>
-          <div className="grid items-center gap-6 rounded-3xl border border-[var(--gold)]/40 bg-gradient-to-br from-[var(--gold)]/15 to-transparent p-8 sm:grid-cols-[1fr_auto]">
+          <div className="ln-deco grid items-center gap-6 rounded-3xl border border-[var(--gold)]/40 bg-gradient-to-br from-[var(--gold)]/15 to-transparent p-8 sm:grid-cols-[1fr_auto]">
             <div>
               <h2 className="font-[family-name:var(--font-cormorant)] text-4xl font-semibold">Own a property in Dubai?</h2>
               <p className="mt-2 text-white/70">Get a free valuation and let us sell or rent it out for you.</p>

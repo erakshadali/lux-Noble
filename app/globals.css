@@ -541,3 +541,29 @@ a:focus-visible {
   .ln-reveal { opacity: 1; transform: none; transition: none; }
   .ln-zoom, .ln-page, .ln-pulse, .ln-gold-text { animation: none; }
 }
+
+/* Lux & Noble: skyline, glow cards, marquee, headline words, drawn lines */
+.ln-twinkle { opacity: 0.15; animation: ln-twinkle 4s ease-in-out infinite; }
+@keyframes ln-twinkle { 0%, 100% { opacity: 0.1; } 50% { opacity: 0.95; } }
+.ln-aurora { animation: ln-aurora 14s ease-in-out infinite alternate; }
+@keyframes ln-aurora { from { transform: translate3d(0, 0, 0) scale(1); } to { transform: translate3d(-120px, 90px, 0) scale(1.25); } }
+.ln-glow { position: relative; }
+.ln-glow::after { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; opacity: 0; transition: opacity 0.3s; background: radial-gradient(360px circle at var(--mx, 50%) var(--my, 50%), rgba(201, 164, 92, 0.18), transparent 60%); }
+.ln-glow:hover::after { opacity: 1; }
+.ln-marquee { display: flex; width: max-content; animation: ln-marquee 38s linear infinite; }
+.ln-marquee:hover { animation-play-state: paused; }
+@keyframes ln-marquee { to { transform: translateX(-50%); } }
+.ln-word { display: inline-block; overflow: hidden; vertical-align: bottom; padding-bottom: 0.25em; margin-bottom: -0.12em; }
+.ln-word > span { display: inline-block; transform: translateY(110%); animation: ln-word 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; animation-delay: var(--w, 0ms); }
+@keyframes ln-word { to { transform: none; } }
+.ln-line { display: block; height: 2px; width: 72px; margin-top: 12px; background: linear-gradient(90deg, #c9a45c, transparent); transform: scaleX(0); transform-origin: left; transition: transform 1s 0.3s ease; }
+.ln-in .ln-line, .ln-line.ln-in { transform: scaleX(1); }
+.ln-btn-shine { position: relative; overflow: hidden; }
+.ln-btn-shine::after { content: ""; position: absolute; inset: 0; background: linear-gradient(110deg, transparent 30%, rgba(255, 255, 255, 0.55) 50%, transparent 70%); transform: translateX(-120%); animation: ln-sweep 4.5s ease-in-out infinite; }
+@keyframes ln-sweep { 0%, 55% { transform: translateX(-120%); } 100% { transform: translateX(120%); } }
+.ln-deco { background-image: repeating-linear-gradient(45deg, rgba(201, 164, 92, 0.07) 0 1px, transparent 1px 14px), repeating-linear-gradient(-45deg, rgba(201, 164, 92, 0.07) 0 1px, transparent 1px 14px); }
+@media (prefers-reduced-motion: reduce) {
+  .ln-twinkle, .ln-aurora, .ln-marquee, .ln-btn-shine::after { animation: none; }
+  .ln-word > span { transform: none; animation: none; }
+  .ln-line { transform: none; transition: none; }
+}

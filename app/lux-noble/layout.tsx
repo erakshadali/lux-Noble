@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Cormorant_Garamond } from "next/font/google";
 import { business } from "@/lib/estate/types";
+import Effects from "@/components/estate/Effects";
 
 const cormorant = Cormorant_Garamond({ variable: "--font-cormorant", subsets: ["latin"], weight: ["500", "600", "700"] });
 
@@ -22,6 +23,7 @@ const nav: [string, string][] = [
 export default function LuxNobleLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className={`${cormorant.variable} min-h-screen bg-[#0b0f1a] text-white [--gold:#c9a45c]`}>
+      <Effects />
       <header className="sticky top-0 z-30 border-b border-white/10 bg-[#0b0f1a]/90 backdrop-blur">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-4">
           <Link href="/lux-noble" className="font-[family-name:var(--font-cormorant)] text-2xl font-bold tracking-wide">

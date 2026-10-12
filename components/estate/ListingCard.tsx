@@ -4,7 +4,7 @@ import FavButton from "./FavButton";
 
 export default function ListingCard({ l }: { l: Listing }) {
   return (
-    <div className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] transition duration-300 hover:-translate-y-1 hover:border-[var(--gold)]/60 hover:shadow-[0_18px_40px_-18px_rgba(201,164,92,0.45)]">
+    <div className="ln-glow group relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] transition duration-300 hover:-translate-y-1 hover:border-[var(--gold)]/60 hover:shadow-[0_18px_40px_-18px_rgba(201,164,92,0.45)]">
       <FavButton id={l.id} className="absolute right-3 top-3 z-10" />
       <Link href={`/lux-noble/property/${l.id}`} className="block">
         <div className="relative aspect-[4/3] overflow-hidden">

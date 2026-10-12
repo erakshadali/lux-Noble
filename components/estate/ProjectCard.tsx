@@ -4,7 +4,7 @@ import RegisterInterest from "./RegisterInterest";
 
 export default function ProjectCard({ p }: { p: Project }) {
   return (
-    <article className="group overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] transition hover:-translate-y-1 hover:border-[var(--gold)]/60">
+    <article className="ln-glow group overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] transition hover:-translate-y-1 hover:border-[var(--gold)]/60">
       <div className="relative aspect-[4/3] overflow-hidden">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={p.photo} alt={p.name} loading="lazy" className="h-full w-full object-cover transition duration-700 group-hover:scale-105" />
