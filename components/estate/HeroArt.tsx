@@ -125,7 +125,7 @@ export default function HeroArt() {
     <div ref={root} className="pointer-events-none absolute inset-0 -z-10 overflow-hidden" aria-hidden>
       <div ref={photo} className="absolute -inset-x-4 -top-10 bottom-0 will-change-transform">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/img/pro/estate/2.jpg" alt="" className="ln-zoom h-full w-full object-cover opacity-40" />
+        <img src="/img/pro/estate/hero.jpg" alt="" className="ln-zoom h-full w-full object-cover opacity-60" />
       </div>
       <div className="absolute inset-0 bg-gradient-to-b from-[#0b0f1a]/30 via-[#0b0f1a]/65 to-[#0b0f1a]" />
       <div ref={glow} className="absolute left-0 top-0 h-[600px] w-[600px] rounded-full opacity-0 transition-opacity duration-700" style={{ background: "radial-gradient(closest-side, rgba(201,164,92,0.22), transparent)" }} />
